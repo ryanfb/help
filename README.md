@@ -1,6 +1,6 @@
 # help
 
-A simple bash script for getting command help. Loops through checking:
+A simple bash script for getting command help. It will loop through checking the following for available help with a command, exiting after the first available one:
 
 * [`tldr`](https://github.com/tldr-pages/tldr)
 * [`cheat`](https://github.com/cheat/cheat)
