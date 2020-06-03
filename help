@@ -1,0 +1,35 @@
+#!/bin/bash
+
+help_commands=(tldr cheat eg bro man)
+
+for help_command in ${help_commands[*]}; do
+  if command -v $help_command > /dev/null; then
+    case $help_command in
+      "tldr" | "man")
+        if $help_command $1 > /dev/null 2>&1; then
+          $help_command $1
+          exit 0
+        fi
+        ;;
+      "cheat" | "eg")
+        if ! $help_command $1 | grep '^No cheatsheet\|entry found for ' > /dev/null; then
+          $help_command $1
+          exit 0
+        fi
+        ;;
+      "bro")
+        if ! $help_command $1 | grep "^The .* command isn't in our database." > /dev/null 2>&1; then
+          $help_command $1
+          exit 0
+        fi
+        ;;
+    esac
+  fi
+done
+
+if $1 --help; then
+  exit 0
+else
+  echo "No help commands found."
+  exit 1
+fi
